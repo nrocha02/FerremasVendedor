@@ -1,6 +1,6 @@
 # PetShop ¡La tienda para tus mascotas!
 
-Página web de PetShop utilizando el framework Django utilizando varias librerías
+Página web de PetShop realizada con el framework Django y con la utilización de varias librerías
 
 # Dependencias
 
@@ -9,7 +9,7 @@ Django:
 pip install django
 ```
 
-Crispy Forms:
+django-crispy-forms:
 ```
 pip install django-crispy-forms
 ```
@@ -24,7 +24,7 @@ Pillow:
 pip install pillow
 ```
 
-# Credenciales Superuser / Admin
+# Credenciales superuser / admin
 
-username: admin
-password: admin
+*username: admin
+*password: admin
