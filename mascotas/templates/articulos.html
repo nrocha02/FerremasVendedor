@@ -25,6 +25,7 @@
                 <th>Modificar</th>
             </tr>
         </thead>
+        {% if user.is_authenticated and user.is_superuser %}
         <tbody>
             {% for producto in articulos %} 
             <tr>
@@ -55,6 +56,8 @@
             </tr>
             {% endfor %}
         </tbody>
+        {% else %}
+        {% endif %}
     </table>
     {% if user.is_authenticated and user.is_superuser %}
         <a href="{% url 'crear' %}" class="btn btn-success">Crear Producto</a>
