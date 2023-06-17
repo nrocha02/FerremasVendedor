@@ -26,5 +26,5 @@ pip install pillow
 
 # Credenciales superuser / admin
 
-*username: admin
-*password: admin
+* username: admin
+* password: admin
