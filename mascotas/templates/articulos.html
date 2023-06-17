@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Store | Modificación de articulos</title>
+    {% load static %}
+</head>
+<body>
+    
+<div class="container mt-5 mb-5">
+    <h2>Productos</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Imagen</th>
+                <th>Eliminar</th>
+                <th>Modificar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in articulos %} 
+            <tr>
+                <td> {{ producto.codigo }}</td>
+                <td> {{ producto.nombre }} </td>
+                <td> {{ producto.descripcion }} </td>
+                <td> {{ producto.precio }}</td>
+                {% if producto.imagen  %}
+                    <td scope="row">
+                        <img src="{{ producto.imagen.url }}" style="height: 50px; width: 50px;">
+                    </td>
+                {% else %}
+                    <td>
+                        <p style="color:red">No tiene imagen</p>
+                    </td>
+                {% endif %}
+                {% if user.is_authenticated and user.is_superuser %}
+                    <td> <a href="{% url 'eliminar' producto.codigo %}" class="btn btn-danger">Eliminar</a></td>
+                    {% else %}
+                    <td> <a href="#" class="btn btn-danger">No tiene permisos</a></td>
+                {% endif %}
+                
+                {% if user.is_authenticated and user.is_superuser %}
+                    <td> <a href="{% url 'modificar' producto.codigo %}" class="btn btn-primary">Modificar </a></td>
+                {% else %}
+                    <td> <a href="#" class="btn btn-primary">No tiene permisos </a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'crear' %}" class="btn btn-success">Crear Producto</a>
+    {% else %}
+        <a href="#" class="btn btn-success">No tiene permisos</a>
+    {% endif %}
+</div>
+
+</div>
+</body>
+</html>
+{% endblock %}

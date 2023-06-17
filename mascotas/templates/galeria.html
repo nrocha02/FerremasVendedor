@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,17 +35,6 @@
 
 <body>
 
-  <!--NAVBAR-->
-
-  <div class="topnav">
-    <a href="{% url 'index' %}">Inicio</a>
-    <a class="active" href="{% url 'galeria' %}">Productos</a>
-    <a href="api.html">Razas de perros</a>
-    <a href="Sobre nosotros.html">Sobre nosotros</a>
-    <a href="formulario.html">Contáctate con nosotros</a>
-    <input type="text" placeholder="Buscar producto...">
-  </div> 
-
   <!--Cuenta regresiva-->
   <div class="container mt-5 mb-5">
   <h1>¡Espera a las mejores ofertas!</h1>
@@ -50,9 +42,35 @@
       <p>
           <span id="days"></span> días / <span id="hours"></span> horas / <span id="minutes"></span> minutos / <span id="seconds"></span> segundos
       </p>
-    </section>  
+    </section>
 
-  <!--GALERIA-->
+    <div class="container">
+      <div class="row">
+          {% for producto in articulos %}
+          <div class="col-12 col-md-4">
+              <div class="card text-center">
+                  {% if producto.imagen %}
+                      <img src="{{ producto.imagen.url }}" class="card-img-top mx-auto">
+                  {% else %} 
+                      <img src="{% static 'img/rayo.jpg' %}" class="card-img-top mx-auto">
+                  {% endif %}
+                  <div class="card-body">
+                      <h4 class="card-title">Codigo:{{ producto.codigo }}</h4>
+                      <p class="card-text">
+                          Nombre: {{ producto.nombre }}<br>
+                          Precio: {{ producto.precio }}
+                     </p>
+                      <a href="#" class="btn btn-success">Comprar</a>
+                      <a href="#" class="btn btn-warning">Ver Info</a>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+
+  <!--
+  GALERIA
 
   <div class="container mt-5 mb-5 d-flex justify-content-center flex-wrap">
     <div class="card mb-3" style="max-width: 15rem;">
@@ -128,7 +146,7 @@
     </div>
 
     <div class="card mb-3" style="max-width: 15rem;">
-      <img src="{% static 'img/productos/MasterProx.png' }" class="card-img-top" alt="...">
+      <img src="{% static 'img/productos/MasterProx.png' %}" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">Master Prox</h5>
         <strong>
@@ -152,7 +170,7 @@
     </div>
 
     <div class="card mb-3" style="max-width: 15rem;">
-      <img src="{% static img/productos/CasaPegable.png %}" class="card-img-top" alt="...">
+      <img src="{% static 'img/productos/CasaPegable.png' %}" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">Casa cama pegable</h5>
         <strong>
@@ -163,55 +181,7 @@
       </div>
     </div>
 
-  </div>
-
-  <!--FOOTER-->
-
-  <hr>
-  <section class="footer">
-    <div class="social">
-      <a href="#"><i class="fa-brands fa-square-facebook" style="color: #1e3050;"></i></a>
-      <a href="#"><i class="fa-brands fa-square-instagram" style="color: #c061cb;"></i></a>
-      <a href="#"><i class="fa-brands fa-square-twitter" style="color: #3584e4;"></i></a>
-      <a href="#"><i class="fa-brands fa-square-youtube" style="color: #e01b24;"></i></a>
-      <a href="#"><i class="fa-brands fa-square-google-plus" style="color: #b5835a;"></i></a>
-    </div>
-
-    <ul class="list">
-      <li>
-        <a href="#">Inicio</a>
-      </li>
-      <li>
-        <a href="#">Servicios</a>
-      </li>
-      <li>
-        <a href="#">Sobre Nosotros</a>
-      </li>
-      <li>
-        <a href="#">Terminos y Condiciones</a>
-      </li>
-      <li>
-        <a href="#">Políticas de privacidad</a>
-      </li>
-    </ul>
-
-    <hr>
-    <p class="copyright text-center">
-      Todos los derechos reservados, Mauricio Piña & Nicolás Rocha 2023
-    </p>
-  </section>
-
-  <script src="{% static 'js/cuentaregresiva.js' %}"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-
+  </div> -->
 </body>
-
 </html>
+{% endblock %}
