@@ -1,5 +1,5 @@
 from django import forms
-from .models import Producto
+from .models import Categoria, Producto
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -11,12 +11,13 @@ class RegistroUserForm(UserCreationForm):
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
-        fields = ['codigo', 'nombre', 'descripcion', 'precio', 'imagen']
+        fields = ['codigo', 'nombre', 'descripcion', 'precio', 'categoria', 'imagen']
         labels = {
             'patente': 'Patente',
             'nombre': 'Nombre',
             'descripcion': 'Descripcion',
             'precio': 'Precio',
+            'categoria': 'Categoria',
             'imagen': 'Imagen'
         }
         widgets = {
@@ -46,6 +47,12 @@ class ProductoForm(forms.ModelForm):
                     'class': 'form-control',
                     'placeholder': 'Ingrese el precio del producto...',
                     'id': 'precio',
+                }
+            ),
+            'categoria': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'id':'categoria',
                 }
             ),
             'imagen': forms.FileInput(

@@ -3,6 +3,7 @@ from .models import *
 from .forms import ProductoForm, RegistroUserForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import default_storage
 
 # Create your views here.
 
@@ -31,23 +32,52 @@ def articulos(request):
     return render(request, 'articulos.html', datos)
 
 @login_required
-def eliminar(id):
+def eliminar(request, id):
     productoEliminado=Producto.objects.get(codigo=id)  #obtenemos un objeto por su pk
     productoEliminado.delete()
     return redirect('articulos')
 
 @login_required
-def modificar(request,id):
-    producto = Producto.objects.get(codigo=id)         #obtenemos un objeto por su pk
-    datos ={
-        'form':ProductoForm(instance=producto)
+def modificar(request, id):
+    producto = Producto.objects.get(codigo=id)
+    datos = {
+        'form': ProductoForm(instance=producto)
     }
-    if request.method=='POST':
-        formulario = ProductoForm(data=request.POST, instance=producto)
-        if formulario.is_valid:
-            formulario.save()
-            return redirect ('articulos')
+    if request.method == 'POST':
+        productoform = ProductoForm(data=request.POST, files=request.FILES, instance=producto)
+        if productoform.is_valid():
+            # Guardar el formulario sin guardar la instancia del producto aún
+            producto_form = productoform.save(commit=False)
+            
+            # Verificar si se proporcionó una nueva imagen
+            if 'imagen' in request.FILES:
+                imagen = request.FILES['imagen']
+                
+                # Eliminar la imagen anterior si existe
+                if producto.imagen:
+                    default_storage.delete(producto.imagen.path)
+                
+                # Guardar la nueva imagen
+                producto_form.imagen = imagen
+            
+            # Guardar finalmente la instancia del producto
+            producto_form.save()
+            return redirect('articulos')
     return render(request, 'modificar.html', datos)
+
+'''
+def modificar(request, id):
+    producto = Producto.objects.get(codigo=id)
+    datos = {
+        'form': ProductoForm(instance=producto)
+    }
+    if request.method == 'POST':
+        productoform = ProductoForm(data=request.POST, instance=producto)
+        if productoform.is_valid():  # Agregamos los paréntesis después de is_valid
+            productoform.save()
+            return redirect('articulos')
+    return render(request, 'modificar.html', datos)
+'''
 
 @login_required
 def crear(request):

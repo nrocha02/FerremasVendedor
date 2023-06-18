@@ -30,7 +30,11 @@
 
     <div class="topnav">
         <a href="{% url 'index' %}">Inicio</a>
+        {% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'articulos' %}">Productos</a>
+        {% else %}
         <a href="{% url 'galeria' %}">Productos</a>
+        {% endif %}
         <a href="{% url 'api' %}">Razas de perros</a>
         <a href="{% url 'sobrenosotros' %}">Sobre nosotros</a>
         <a href="{% url 'formulario' %}">Contáctate con nosotros</a>

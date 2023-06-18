@@ -52,14 +52,15 @@
                   {% if producto.imagen %}
                       <img src="{{ producto.imagen.url }}" class="card-img-top mx-auto">
                   {% else %} 
-                      <img src="{% static 'img/rayo.jpg' %}" class="card-img-top mx-auto">
+                      <img src="{% static 'img/Producto-sin-imagen.jpg' %}" class="card-img-top mx-auto">
                   {% endif %}
                   <div class="card-body">
-                      <h4 class="card-title">Codigo:{{ producto.codigo }}</h4>
+                      <h4 class="card-title">{{ producto.nombre }}</h4>
                       <p class="card-text">
-                          Nombre: {{ producto.nombre }}<br>
-                          Descripcion: {{ producto.descripcion }}
-                          Precio: $ {{ producto.precio }}
+                          Codigo: {{ producto.codigo }}<br>
+                          Categoria: {{ producto.categoria }}<br>
+                          Descripcion: {{ producto.descripcion }}<br>
+                          Precio: $ {{ producto.precio }}<br>
                      </p>
                       <a href="#" class="btn btn-success">Comprar</a>
                       <a href="#" class="btn btn-warning">Ver Info</a>

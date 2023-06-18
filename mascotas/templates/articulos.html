@@ -19,6 +19,7 @@
                 <th>Codigo</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
+                <th>Categoria</th>
                 <th>Precio</th>
                 <th>Imagen</th>
                 <th>Eliminar</th>
@@ -32,7 +33,8 @@
                 <td> {{ producto.codigo }}</td>
                 <td> {{ producto.nombre }} </td>
                 <td> {{ producto.descripcion }} </td>
-                <td> {{ producto.precio }}</td>
+                <th> {{ producto.categoria }} </th>
+                <td> {{ producto.precio }} </td>
                 {% if producto.imagen  %}
                     <td scope="row">
                         <img src="{{ producto.imagen.url }}" style="height: 50px; width: 50px;">

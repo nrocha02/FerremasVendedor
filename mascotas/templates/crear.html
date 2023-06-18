@@ -28,6 +28,7 @@
                     codigo: "required",
                     nombre: "required",
                     descripcion:"required",
+                    categoria:"required",
                     precio:"required"
                 },
                 messages:{
@@ -40,6 +41,9 @@
                     descripcion: {
                         required: 'Ingrese una descripcion',
                     },
+                    categoria: {
+                        required: 'Ingrese una categoria'
+                    },
                     precio:{
                         required: 'Ingrese un precio',
                     }
@@ -50,7 +54,7 @@
     </script>
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-5 mb-5">
         <h2>Creando Productos</h2>
         <form method="POST" id="formulario" enctype="multipart/form-data">
             {% csrf_token %}
@@ -84,6 +88,13 @@
 
             <div class="row">
                 <label for="{{ productoform.field.name }}">
+                    {{productoform.categoria.label}}
+                </label>
+                {{ productoform.categoria }}
+            </div>
+
+            <div class="row">
+                <label for="{{ productoform.field.name }}">
                     {{productoform.imagen.label}}
                 </label>
                 {{ productoform.imagen }}
@@ -94,7 +105,7 @@
             <div class="row">
                 <div class="col-md">
                     <input type="submit" class="btn btn-primary" value="Enviar">
-                    <a href="{% url 'index' %}" class="btn btn-success">Inicio</a>
+                    <a href="{% url 'articulos' %}" class="btn btn-warning">Volver</a>
                 </div>
             </div>
 

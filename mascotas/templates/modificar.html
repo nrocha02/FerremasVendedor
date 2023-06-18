@@ -15,41 +15,48 @@
     <title>Modificar</title>
 </head>
 <body>
-    <div class="container">
-        <h2>Modificar Vehiculo</h2>
-        <form method="POST" id="formulario">
+    <div class="container mt-5 mb-5">
+        <h2>Modificar Producto</h2>
+        <form method="POST" id="formulario" enctype="multipart/form-data">
             
             {% csrf_token %}
             <div class="row">
-                <label for="{{ form.field.name }}">
+                <label for="{{ productoform.field.name }}">
                     {{form.codigo.label}}
                 </label>
-                {{ form.codigo }}
+                {{ form.codigo}}
             </div>
 
             <div class="row">
-                <label for="{{ form.field.name }}">
+                <label for="{{ productoform.field.name }}">
                     {{form.nombre.label}}
                 </label>
                 {{ form.nombre }}
             </div>
 
             <div class="row">
-                <label for="{{ vehiculoform.field.name }}">
+                <label for="{{ productoform.field.name }}">
                     {{form.descripcion.label}}
                 </label>
                 {{ form.descripcion }}
             </div>
 
             <div class="row">
-                <label for="{{ vehiculoform.field.name }}">
+                <label for="{{ productoform.field.name }}">
                     {{form.precio.label}}
                 </label>
                 {{ form.precio }}
             </div>
 
             <div class="row">
-                <label for="{{ vehiculoform.field.name }}">
+                <label for="{{ productoform.field.name }}">
+                    {{form.categoria.label}}
+                </label>
+                {{ form.categoria }}
+            </div>
+
+            <div class="row">
+                <label for="{{ productoform.field.name }}">
                     {{form.imagen.label}}
                 </label>
                 {{ form.imagen }}
@@ -58,7 +65,7 @@
             <br><br>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Modificar">
-                <a href="{% url 'index' %}" class="btn btn-success">Inicio</a>
+                <a href="{% url 'articulos' %}" class="btn btn-warning">Volver</a>
             </div>
 
 
