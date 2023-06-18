@@ -2,6 +2,12 @@
 
 Página web de PetShop realizada con el framework Django y con la utilización de varias librerías
 
+Para crear un servidor local debes tener instalado Python (con la opción de PATH activada) y ejecutar el siguiente comando en CMD/PowerShell:
+
+```
+py manage.py runserver
+```
+
 # Dependencias
 
 Django:
