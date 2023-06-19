@@ -13,6 +13,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
     <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
     <title>Modificar</title>
+    <style>
+        label.error{
+            color:red;
+            width: 200px;
+            font-size:0.8em;
+            
+        }
+    </style>
+    <script>
+        $(function(){
+            $("#formulario").validate({
+                rules:{
+                    codigo: "required",
+                    nombre: "required",
+                    descripcion:"required",
+                    categoria:"required",
+                    precio:"required"
+                },
+                messages:{
+                    codigo:{
+                        required: 'Ingrese un codigo',
+                    },
+                    nombre:{
+                        required: 'Ingrese un nombre',
+                    },
+                    descripcion: {
+                        required: 'Ingrese una descripcion',
+                    },
+                    categoria: {
+                        required: 'Ingrese una categoria'
+                    },
+                    precio:{
+                        required: 'Ingrese un precio',
+                    }
+                }
+
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container mt-5 mb-5">
