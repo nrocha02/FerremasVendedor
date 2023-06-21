@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, galeria, api, formulario, sobrenosotros, crear, articulos, eliminar, modificar, registrar
+from .views import *
 
 urlpatterns = [
     path('', index, name="index"),
