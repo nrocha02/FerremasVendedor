@@ -44,6 +44,10 @@
       </p>
     </section>
 
+    <div class="col-4">
+      {% include "carrito.html" %}
+    </div>
+
     <div class="container">
       <div class="row">
           {% for producto in articulos %}
@@ -62,8 +66,7 @@
                           Descripcion: {{ producto.descripcion }}<br>
                           Precio: $ {{ producto.precio }}<br>
                      </p>
-                      <a href="#" class="btn btn-success">Comprar</a>
-                      <a href="#" class="btn btn-warning">Ver Info</a>
+                      <a href="{% url 'agregar' producto.codigo %}" class="btn btn-success">Agregar al carro</a>
                   </div>
               </div>
           </div>
