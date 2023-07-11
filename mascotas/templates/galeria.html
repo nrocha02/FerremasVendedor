@@ -48,9 +48,9 @@
       {% include "carrito.html" %}
     </div>
 
-    <div class="container">
+    <div class="container mt-5 mb-5">
       <div class="row">
-          {% for producto in articulos %}
+          {% for producto in productos %}
           <div class="col-12 col-md-4">
               <div class="card text-center">
                   {% if producto.imagen %}
@@ -72,121 +72,22 @@
           </div>
           {% endfor %}
       </div>
-  </div>
-
-  <!--
-  GALERIA
-
-  <div class="container mt-5 mb-5 d-flex justify-content-center flex-wrap">
-    <div class="card mb-3" style="max-width: 15rem;">
-      <img src="{% static 'img/productos/ProPlanAdultoRazaMediana.png' %}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Proplan Adulto</h5>
-        <strong>
-          <p clas="card-text">$22.990</p>
-        </strong>
-        <p class="card-text">Alimento para perros</p>
-        <a href="#" class="btn btn-warning">Comprar Producto</a>
+    </div>
+    
+    <div class="container mt-5 mb-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          {% if productos.has_previous %}
+          <a href="?page={{ productos.previous_page_number }}" class="btn btn-primary">Anterior</a>
+          {% endif %}
+          <span class="mx-3">Página {{ productos.number }} de {{ productos.paginator.num_pages }}</span>
+          {% if productos.has_next %}
+          <a href="?page={{ productos.next_page_number }}" class="btn btn-primary">Siguiente</a>
+          {% endif %}
+        </div>
       </div>
     </div>
 
-    <div class="card mb-3" style="max-width: 15rem;">
-      <img src="{% static 'img/productos/ProplanAdultoCat.jpg' %}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Proplan Adulto Cat</h5>
-        <strong>
-          <p clas="card-text">$21.990</p>
-        </strong>
-        <p class="card-text">Alimento para gatos</p>
-        <a href="#" class="btn btn-warning">Comprar Producto</a>
-      </div>
-    </div>
-
-    <div class="card mb-3" style="max-width: 15rem;">
-      <img src="{% static 'img/productos/RoyalCaninAdultoIndoor.jpg' %}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Royal Canin Adulto Indoor</h5>
-        <strong>
-          <p clas="card-text">$28.990</p>
-        </strong>
-        <p class="card-text">Alimento para gatos</p>
-        <a href="#" class="btn btn-warning">Comprar Producto</a>
-      </div>
-    </div>
-
-    <div class="card mb-3" style="max-width: 15rem;">
-      <img src="{% static 'img/productos/BuddyBoxJuguete.png' %}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Buddy Pet</h5>
-        <strong>
-          <p clas="card-text">$8.990</p>
-        </strong>
-        <p class="card-text">Buddy Box Juguete perro</p>
-        <a href="#" class="btn btn-warning">Comprar Producto</a>
-      </div>
-    </div>
-
-    <div class="card mb-3" style="max-width: 15rem;">
-      <img src="{% static 'img/productos/BuddyBoxHigiene.png' %}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Buddy Pet</h5>
-        <strong>
-          <p class="card-text">$9.279</p>
-        </strong>
-        <p class="card-text">Buddy Box Higiene perro</p>
-        <a href="#" class="btn btn-warning">Comprar Producto</a>
-      </div>
-    </div>
-
-    <div class="card mb-3" style="max-width: 15rem;">
-      <img src="{% static 'img/productos/BuddyBoxPaseo.png' %}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Buddy Pet</h5>
-        <strong>
-          <p class="card-text">$7.790</p>
-        </strong>
-        <p class="card-text">Buddy Box Paseo perro</p>
-        <a href="#" class="btn btn-warning">Comprar Producto</a>
-      </div>
-    </div>
-
-    <div class="card mb-3" style="max-width: 15rem;">
-      <img src="{% static 'img/productos/MasterProx.png' %}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Master Prox</h5>
-        <strong>
-          <p class="card-text">$12.990</p>
-        </strong>
-        <p class="card-text">Manguera ducha para baño</p>
-        <a href="#" class="btn btn-warning">Comprar Producto</a>
-      </div>
-    </div>
-
-    <div class="card mb-3" style="max-width: 15rem;">
-      <img src="{% static 'img/productos/CamaPalta.png' %}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Cama de perro</h5>
-        <strong>
-          <p class="card-text">$16.190</p>
-        </strong>
-        <p class="card-text">En forma de palta</p>
-        <a href="#" class="btn btn-warning">Comprar Producto</a>
-      </div>
-    </div>
-
-    <div class="card mb-3" style="max-width: 15rem;">
-      <img src="{% static 'img/productos/CasaPegable.png' %}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Casa cama pegable</h5>
-        <strong>
-          <p class="card-text">$22.990</p>
-        </strong>
-        <p class="card-text">Para perros y gatos</p>
-        <a href="#" class="btn btn-warning">Comprar Producto</a>
-      </div>
-    </div>
-
-  </div> -->
   <script src="{% static 'js/cuentaregresiva.js' %}"></script>
 </body>
 </html>

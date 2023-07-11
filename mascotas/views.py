@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import default_storage
 from mascotas.compra import Carrito
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -12,11 +13,12 @@ def index(request):
     return render(request, 'index.html')
 
 def galeria(request):
-    articulos = Producto.objects.all()
-    datos={
-        'articulos': articulos
-    }
-    return render(request,'galeria.html',datos)
+    productos = Producto.objects.all()
+    paginator = Paginator(productos, 9)  # Ajusta el número de productos por página según tus necesidades
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'productos': page_obj}
+    return render(request, 'galeria.html', context)
 
 def api(request):
     return render(request, 'api.html')
