@@ -1,6 +1,7 @@
 from distutils.command.upload import upload
 from django.db import models
 import datetime
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Categoria(models.Model):
@@ -17,15 +18,17 @@ class Producto(models.Model):
     precio = models.IntegerField(blank=True, null=True, verbose_name="Precio")
     categoria=models.ForeignKey(Categoria, on_delete=models.CASCADE, verbose_name="Categoria")
     imagen = models.ImageField(upload_to="imagenes", null=True, blank=True, verbose_name="Imagen")
+    stock = models.IntegerField(verbose_name="Stock")
 
     def __str__(self):
         return self.codigo
     
 class Boleta(models.Model):
-    id_boleta=models.AutoField(primary_key=True)
-    total=models.BigIntegerField()
-    fechaCompra=models.DateTimeField(blank=False, null=False, default = datetime.datetime.now)
-    
+    id_boleta = models.AutoField(primary_key=True)
+    total = models.BigIntegerField()
+    fechaCompra = models.DateTimeField(blank=False, null=False, default=datetime.datetime.now)
+    usuario = models.ForeignKey(User,on_delete=models.CASCADE)  # Campo para almacenar el usuario
+
     def __str__(self):
         return str(self.id_boleta)
 

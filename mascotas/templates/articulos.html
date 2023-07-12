@@ -21,6 +21,7 @@
                 <th>Descripcion</th>
                 <th>Categoria</th>
                 <th>Precio</th>
+                <th>Stock</th>
                 <th>Imagen</th>
                 <th>Eliminar</th>
                 <th>Modificar</th>
@@ -35,6 +36,7 @@
                 <td> {{ producto.descripcion }} </td>
                 <th> {{ producto.categoria }} </th>
                 <td> {{ producto.precio }} </td>
+                <td> {{ producto.stock }} </td>
                 {% if producto.imagen  %}
                     <td scope="row">
                         <img src="{{ producto.imagen.url }}" style="height: 50px; width: 50px;">

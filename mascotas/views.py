@@ -14,7 +14,7 @@ def index(request):
 
 def galeria(request):
     productos = Producto.objects.all()
-    paginator = Paginator(productos, 9)  # Ajusta el número de productos por página según tus necesidades
+    paginator = Paginator(productos, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {'productos': page_obj}
@@ -68,20 +68,6 @@ def modificar(request, id):
             return redirect('articulos')
     return render(request, 'modificar.html', datos)
 
-'''
-def modificar(request, id):
-    producto = Producto.objects.get(codigo=id)
-    datos = {
-        'form': ProductoForm(instance=producto)
-    }
-    if request.method == 'POST':
-        productoform = ProductoForm(data=request.POST, instance=producto)
-        if productoform.is_valid():  # Agregamos los paréntesis después de is_valid
-            productoform.save()
-            return redirect('articulos')
-    return render(request, 'modificar.html', datos)
-'''
-
 @login_required
 def crear(request):
     if request.method=='POST':
@@ -109,49 +95,83 @@ def registrar(request):
         data["form"] = formulario
     return render(request, 'registration/registro.html', data)
 
+@login_required
 def agregar_producto(request,id):
     carrito_compra= Carrito(request)
     producto = Producto.objects.get(codigo=id)
     carrito_compra.agregar(producto=producto)
     return redirect('galeria')
 
+@login_required
 def eliminar_producto(request, id):
     carrito_compra= Carrito(request)
     producto = Producto.objects.get(codigo=id)
     carrito_compra.eliminar(producto=producto)
     return redirect('galeria')
 
+@login_required
 def restar_producto(request, id):
     carrito_compra= Carrito(request)
     producto = Producto.objects.get(codigo=id)
     carrito_compra.restar(producto=producto)
     return redirect('galeria')
 
+@login_required
 def limpiar_carrito(request):
     carrito_compra= Carrito(request)
     carrito_compra.limpiar()
     return redirect('galeria')
 
+from collections import defaultdict
+
+from collections import defaultdict
+
+@login_required
 def generarBoleta(request):
-    precio_total=0
+    precio_total = 0
+    envio = 3990
+    impuesto_producto = 5990
+
+    subtotales = defaultdict(int)
+
     for key, value in request.session['carrito'].items():
-        precio_total = precio_total + int(value['precio']) * int(value['cantidad'])
-    boleta = Boleta(total = precio_total)
+        cantidad = int(value['cantidad'])
+        precio = int(value['precio'])
+
+        subtotal = cantidad * precio
+
+        if cantidad >= 4:
+            subtotal += impuesto_producto
+
+        subtotales[value['producto_id']] += subtotal
+
+    precio_total = sum(subtotales.values())
+    precio_total += envio
+
+    usuario_actual = request.user
+
+    boleta = Boleta(total=precio_total, usuario=usuario_actual)
     boleta.save()
+
     productos = []
     for key, value in request.session['carrito'].items():
-            producto = Producto.objects.get(codigo = value['producto_id'])
-            cant = value['cantidad']
-            subtotal = cant * int(value['precio'])
-            detalle = detalle_boleta(id_boleta = boleta, id_producto = producto, cantidad = cant, subtotal = subtotal)
-            detalle.save()
-            productos.append(detalle)
-    datos={
-        'productos':productos,
-        'fecha':boleta.fechaCompra,
-        'total': boleta.total
+        producto = Producto.objects.get(codigo=value['producto_id'])
+        cant = value['cantidad']
+        subtotal = subtotales[value['producto_id']]
+        detalle = detalle_boleta(id_boleta=boleta, id_producto=producto, cantidad=cant, subtotal=subtotal)
+        detalle.save()
+        productos.append(detalle)
+
+        producto.stock -= cant
+        producto.save()
+
+    datos = {
+        'productos': productos,
+        'fecha': boleta.fechaCompra,
+        'total': boleta.total,
+        'usuario': boleta.usuario
     }
     request.session['boleta'] = boleta.id_boleta
     carrito = Carrito(request)
     carrito.limpiar()
-    return render(request, 'detallecarrito.html',datos)
+    return render(request, 'detallecarrito.html', datos)

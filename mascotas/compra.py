@@ -9,22 +9,26 @@ class Carrito:
     
     def agregar(self, producto):
         if producto.codigo not in self.carrito.keys():
-            self.carrito[producto.codigo]={
-                "producto_id":producto.codigo, 
-                "nombre": producto.nombre,
-                "precio": str (producto.precio),
-                "cantidad": 1,
-                "total": producto.precio,
-
-            }
+            if producto.stock > 0:
+                self.carrito[producto.codigo]={
+                    "producto_id": producto.codigo, 
+                    "nombre": producto.nombre,
+                    "precio": str(producto.precio),
+                    "cantidad": 1,
+                    "total": producto.precio,
+                }
+                producto.stock -= 1  # Reducir el stock del producto en 1
         else:
             for key, value in self.carrito.items():
-                if key==producto.codigo:
-                    value["cantidad"] = value["cantidad"]+1
-                    value["precio"] = producto.precio
-                    value["total"]= value["total"] + producto.precio
+                if key == producto.codigo:
+                    if value["cantidad"] < producto.stock:
+                        value["cantidad"] += 1
+                        value["precio"] = producto.precio
+                        value["total"] = value["total"] + producto.precio
+                        producto.stock -= 1  # Reducir el stock del producto en 1
                     break
         self.guardar_carrito()
+
 
     def guardar_carrito(self):
         self.session["carrito"] = self.carrito
