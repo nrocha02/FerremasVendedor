@@ -29,7 +29,8 @@
                     nombre: "required",
                     descripcion:"required",
                     categoria:"required",
-                    precio:"required"
+                    precio:"required",
+                    stock: "required"
                 },
                 messages:{
                     codigo:{
@@ -42,10 +43,13 @@
                         required: 'Ingrese una descripcion',
                     },
                     categoria: {
-                        required: 'Ingrese una categoria'
+                        required: 'Ingrese una categoria',
                     },
                     precio:{
                         required: 'Ingrese un precio',
+                    },
+                    stock:{
+                        required: 'Ingrese un stock'
                     }
                 }
 
@@ -92,6 +96,13 @@
                     {{form.categoria.label}}
                 </label>
                 {{ form.categoria }}
+            </div>
+
+            <div class="row">
+                <label for="{{ productoform.field.name }}">
+                    {{form.stock.label}}
+                </label>
+                {{ form.stock }}
             </div>
 
             <div class="row">

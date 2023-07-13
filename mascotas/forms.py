@@ -11,13 +11,14 @@ class RegistroUserForm(UserCreationForm):
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
-        fields = ['codigo', 'nombre', 'descripcion', 'precio', 'categoria', 'imagen']
+        fields = ['codigo', 'nombre', 'descripcion', 'precio', 'categoria', 'stock','imagen']
         labels = {
             'patente': 'Patente',
             'nombre': 'Nombre',
             'descripcion': 'Descripcion',
             'precio': 'Precio',
             'categoria': 'Categoria',
+            'stock': 'Stock',
             'imagen': 'Imagen'
         }
         widgets = {
@@ -35,7 +36,7 @@ class ProductoForm(forms.ModelForm):
                     'id': 'nombre',
                 }
             ),
-            'descripcion': forms.TextInput(
+            'descripcion': forms.Textarea(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Ingrese la descripcion del producto...',
@@ -53,6 +54,12 @@ class ProductoForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'id':'categoria',
+                }
+            ),
+            'stock': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'id':'stock',
                 }
             ),
             'imagen': forms.FileInput(
