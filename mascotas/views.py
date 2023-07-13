@@ -49,21 +49,16 @@ def modificar(request, id):
     if request.method == 'POST':
         productoform = ProductoForm(data=request.POST, files=request.FILES, instance=producto)
         if productoform.is_valid():
-            # Guardar el formulario sin guardar la instancia del producto aún
             producto_form = productoform.save(commit=False)
             
-            # Verificar si se proporcionó una nueva imagen
             if 'imagen' in request.FILES:
                 imagen = request.FILES['imagen']
                 
-                # Eliminar la imagen anterior si existe
                 if producto.imagen:
                     default_storage.delete(producto.imagen.path)
                 
-                # Guardar la nueva imagen
                 producto_form.imagen = imagen
             
-            # Guardar finalmente la instancia del producto
             producto_form.save()
             return redirect('articulos')
     return render(request, 'modificar.html', datos)
@@ -73,16 +68,16 @@ def crear(request):
     if request.method=='POST':
         productoform = ProductoForm(request.POST, request.FILES)
         if productoform.is_valid():
-            productoform.save()     #similar al insert en función
-            return redirect('articulos') #aqui va la página de administración de los productos
+            productoform.save()
+            return redirect('articulos')
     else:
         productoform=ProductoForm()
-    return render(request, 'crear.html',{'productoform': productoform}) #aqui debo poner la página para crear un nuevo producto
+    return render(request, 'crear.html',{'productoform': productoform})
 
-#método que permite registrar un usuario
+
 def registrar(request):
     data = {
-        'form' : RegistroUserForm()         #creamos un objeto de tipo forms para user
+        'form' : RegistroUserForm()
     }
     if request.method=="POST":
         formulario = RegistroUserForm(data = request.POST)  
