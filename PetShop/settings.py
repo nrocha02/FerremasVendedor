@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap4',
     'mascotas',
+    'payments',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -80,10 +81,14 @@ WSGI_APPLICATION = 'PetShop.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'ferremasdb',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': 'mongodb+srv://nicorocha:YYyCvIZvh33rOea8@ferremascluster.cdxgvsx.mongodb.net/ferremasdb?retryWrites=true&w=majority&appName=FerremasCluster'
+            }  
+        }
 }
 
 
@@ -137,3 +142,9 @@ MEDIA_ROOT = BASE_DIR / "files"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+TRANSBANK = {
+    'MODO': 'INTEGRACION',  # Cambiar a 'PRODUCCION' en el entorno de producción
+    'COMMERCE_CODE': '597055555532',
+    'API_KEY_SECRET': '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C'
+}

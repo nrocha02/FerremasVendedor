@@ -1,0 +1,15 @@
+<!-- payments/templates/payments/payment_button.html -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Iniciar Pago</title>
+  </head>
+  <body>
+    <h1>Pagar con Transbank</h1>
+    <form action="{% url 'start_payment' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Pagar Ahora</button>
+    </form>
+  </body>
+</html>

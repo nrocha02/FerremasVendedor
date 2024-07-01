@@ -10,15 +10,12 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
-
-def galeria(request):
     productos = Producto.objects.all()
     paginator = Paginator(productos, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {'productos': page_obj}
-    return render(request, 'galeria.html', context)
+    return render(request, 'index.html', context)
 
 def api(request):
     return render(request, 'api.html')
